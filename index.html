@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Racing Game with Dice</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="app__header">
+        <h1>Racing Game with Dice</h1>
+        <p class="subtitle">Two players. Roll, add, and race to the finish!</p>
+      </header>
+
+      <section class="controls">
+        <div class="controls__row controls__row--mode">
+          <label for="mode">Mode</label>
+          <select id="mode">
+            <option value="pvp">Player vs Player</option>
+            <option value="pvc">Player vs Computer</option>
+          </select>
+        </div>
+        <div class="controls__group">
+          <div class="controls__row">
+            <label for="p1name">Player 1</label>
+            <input id="p1name" type="text" value="Player 1" />
+          </div>
+          <div class="controls__row">
+            <label for="p1car">Player 1 Car</label>
+            <select id="p1car">
+              <option value="blue">Blue</option>
+              <option value="white">White</option>
+              <option value="green">Green</option>
+              <option value="orange">Orange</option>
+              <option value="lightning">Lightning</option>
+            </select>
+          </div>
+        </div>
+        <div class="controls__group">
+          <div class="controls__row">
+            <label for="p2name">Player 2</label>
+            <input id="p2name" type="text" value="Player 2" />
+          </div>
+          <div class="controls__row">
+            <label for="p2car">Player 2 Car</label>
+            <select id="p2car">
+              <option value="white">White</option>
+              <option value="blue">Blue</option>
+              <option value="green">Green</option>
+              <option value="orange">Orange</option>
+              <option value="lightning">Lightning</option>
+            </select>
+          </div>
+        </div>
+        <div class="controls__row controls__buttons">
+          <button id="startBtn" class="primary">Start Game</button>
+          <button id="resetBtn" class="secondary" disabled>Reset</button>
+        </div>
+      </section>
+
+      <section class="status">
+        <div class="turn" id="turnDisplay">Press Start</div>
+        <div class="dice" id="diceDisplay">
+          <div class="die" id="die1" aria-label="die 1"></div>
+          <div class="die" id="die2" aria-label="die 2"></div>
+          <button id="rollBtn" class="primary" disabled>Roll Dice</button>
+        </div>
+        <div class="question" id="questionArea">
+          <span id="questionText">Sum?</span>
+          <input id="answerInput" type="number" inputmode="numeric" placeholder="Your answer" disabled />
+          <button id="answerBtn" disabled>Submit</button>
+        </div>
+      </section>
+
+      <section class="board__wrapper">
+        <div class="legend">
+          <span class="legend__item"><span class="legend__swatch boost"></span>Boost</span>
+          <span class="legend__item"><span class="legend__swatch skip"></span>Skip Turn</span>
+        </div>
+        <div id="board" class="board" aria-label="race track">
+          <svg id="trackSVG" class="track" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.4"/>
+              </filter>
+            </defs>
+            <!-- Circular asphalt -->
+            <path d="M500 300 m -260, 0 a 260,260 0 1,0 520,0 a 260,260 0 1,0 -520,0" stroke="#2a2f4b" stroke-width="80" fill="none" filter="url(#shadow)"/>
+            <!-- Lane -->
+            <path id="trackPath" d="M500 300 m -260, 0 a 260,260 0 1,0 520,0 a 260,260 0 1,0 -520,0" stroke="#4a527f" stroke-width="6" fill="none" stroke-dasharray="14 12"/>
+          </svg>
+          <div id="tiles" class="tiles"></div>
+          <div class="cars" aria-hidden="true">
+            <div id="car1" class="car car--p1" aria-label="car 1" title="Player 1">
+              <!-- SVG Top-view car -->
+              <svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="p1grad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#ff3b30"/>
+                    <stop offset="100%" stop-color="#b00000"/>
+                  </linearGradient>
+                </defs>
+                <rect x="10" y="8" width="100" height="44" rx="10" fill="url(#p1grad)" />
+                <rect x="20" y="12" width="30" height="36" rx="4" fill="#111" opacity="0.7" />
+                <rect x="70" y="12" width="30" height="36" rx="4" fill="#111" opacity="0.7" />
+                <rect x="5" y="10" width="6" height="40" rx="2" fill="#333" />
+                <rect x="109" y="10" width="6" height="40" rx="2" fill="#333" />
+              </svg>
+            </div>
+            <div id="car2" class="car car--p2" aria-label="car 2" title="Player 2">
+              <svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="p2grad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#34c759"/>
+                    <stop offset="100%" stop-color="#0b7d2b"/>
+                  </linearGradient>
+                </defs>
+                <rect x="10" y="8" width="100" height="44" rx="10" fill="url(#p2grad)" />
+                <rect x="20" y="12" width="30" height="36" rx="4" fill="#111" opacity="0.7" />
+                <rect x="70" y="12" width="30" height="36" rx="4" fill="#111" opacity="0.7" />
+                <rect x="5" y="10" width="6" height="40" rx="2" fill="#333" />
+                <rect x="109" y="10" width="6" height="40" rx="2" fill="#333" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="log" id="log"></section>
+
+      <dialog id="winnerDialog">
+        <h3 id="winnerText">Winner!</h3>
+        <button id="closeDialogBtn" class="primary">Close</button>
+      </dialog>
+
+      <div id="winOverlay" class="overlay" hidden>
+        <div class="overlay__content">
+          <h3 id="winOverlayText">Winner!</h3>
+          <div class="overlay__actions">
+            <button id="winOverlayClose" class="primary">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+  </html>
+
+

@@ -1,12 +1,12 @@
-# Racing Game with Dice
+# Racing Board Game with Dice for Families
 
-A lightweight browser game: roll two dice, add them up, and race to the finish. Supports Player vs Player (PvP) and Player vs Computer (PvC). Built with plain HTML, CSS, and JavaScript — no build tools required.
+A lightweight browser game: roll two dice, add them up, and race to the finish. Supports Player vs Player (PvP) and Player vs Computer (PvC). Built with plain HTML, CSS, and JavaScript — no build tools required. This game is especially useful if you have elementary school kids and want them practice their basic math skills.
 
 ## Preview
 
 - Board: 10×5 grid of tiles (1 → 50)
 - Special tiles: Boost (+2…+6), Skip Turn (miss next turn)
-- Animated cars with PNG skins (Blue, White, Green, Orange, Lightning)
+- Animated cars with PNG skins (Blue, White, Green, Orange, Lightning).
 
 ## Play locally
 
@@ -54,7 +54,7 @@ cars/           # PNG car sprites used in the game
 - Grid board: CSS Grid (`#tiles`) – 10 columns, fixed row height (72px)
 - Cars: absolutely positioned and animated to the center of the current tile
 - Single roll per turn: after rolling, “Roll Dice” disables until the next turn
-- Win UX: the car finishes its move first, then the win dialog appears (no banner, no alert)
+- Win UX: the car finishes its move first, then the win dialog appears
 
 ### Key constants (tweak in `script.js`)
 
@@ -77,6 +77,13 @@ Modern evergreen browsers (Chrome, Edge, Firefox, Safari). If `<dialog>` is unav
 ## Contributing
 
 Issues and PRs are welcome. Please keep the codebase dependency‑free and match the existing code style.
+
+👨‍💻 About Me
+
+Hi! I'm Khamroz Abdukhoshimov, a QA Automation Engineer with 10+ years of experience in building robust automation frameworks using Playwright, Selenium, Nightwatch and BDD tools.
+I love leveraging AI-driven testing solutions to reduce flakiness and improve reliability. Also enjoy creating simple games for my son, who like many of his peers, loves computer games. I try to keep his learning skills sharpened with the games. This game is dedicated to my son, Alfred.
+Connect with me:
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-black)](https://github.com/rossabdukhoshimov)
 
 ## License
 
